@@ -139,14 +139,14 @@ while i < abs(length)                                      % while not finished
     end
     f3 = f2; d3 = d2; z3 = -z2;                  % set point 3 equal to point 2
     z1 = z1 + z2; X = X + z2*s;                      % update current estimates
-    [f2 df2] = eval(argstr);
+    [f2, df2] = eval(argstr);
     M = M - 1; i = i + (length<0);                             % count epochs?!
     d2 = df2'*s;
   end                                                      % end of line search
 
   if success                                         % if line search succeeded
     f1 = f2; fX = [fX' f1]';
-    fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
+    %fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
     s = (df2'*df2-df1'*df2)/(df1'*df1)*s - df2;      % Polack-Ribiere direction
     tmp = df1; df1 = df2; df2 = tmp;                         % swap derivatives
     d2 = df1'*s;
