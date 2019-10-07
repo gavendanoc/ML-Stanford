@@ -164,7 +164,7 @@ pause;
 %  lambda to see how the fit and learning curve change.
 %
 
-lambda = 0;
+lambda = 100;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
@@ -215,6 +215,23 @@ for i = 1:length(lambda_vec)
 	fprintf(' %f\t%f\t%f\n', ...
             lambda_vec(i), error_train(i), error_val(i));
 end
+
+fprintf('Program paused. Press enter to continue.\n');
+pause;
+%% =========== Part 9: Validation for Selecting Lambda =============
+%  You will now implement validationCurve to test various values of 
+%  lambda on a validation set. You will then use this to select the
+%  "best" lambda value.
+%
+lambda = 3;
+
+fprintf('Test error with best lambda=3\n');
+best_theta = trainLinearReg(X_poly, y, lambda);
+test_error = linearRegCostFunction(X_poly_test, ytest, best_theta, 0);
+val_error = linearRegCostFunction(X_poly_val, yval, best_theta, 0);
+
+fprintf('Test error %f\n', test_error);
+fprintf('Val error %f\n', val_error);
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;

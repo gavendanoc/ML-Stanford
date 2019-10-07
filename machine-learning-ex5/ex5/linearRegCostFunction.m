@@ -23,7 +23,7 @@ grad = zeros(size(theta));
 % Calculating cost function
 J = 1/(2 * m) * sum((X * theta - y) .^ 2);
 
-% Adding regularization. Do not add the weight for bias unit
+% Adding regularization. Do nt add the weight for bias unit
 J = J + lambda / (2 * m) * sum(theta(2:end).^2);
 
 % Calculating gradient
@@ -31,13 +31,6 @@ grad = (1 / m) * (X' * (X * theta - y));
 
 % Adding regularization except for bias
 grad(2:end) = grad(2:end) + (lambda / m) * theta(2:end);
-
-
-
-
-
-
-
 
 % =========================================================================
 

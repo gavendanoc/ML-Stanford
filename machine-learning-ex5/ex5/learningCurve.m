@@ -54,10 +54,20 @@ error_val   = zeros(m, 1);
 % ---------------------- Sample Solution ----------------------
 
 
-
-
-
-
+for i=1:m
+    train_indexes = randperm(m, i);
+    disp(train_indexes);
+    Xtrain = X(train_indexes, :);
+    ytrain = y(train_indexes, :);
+    theta = trainLinearReg(Xtrain, ytrain, lambda);
+    trainError = linearRegCostFunction(Xtrain, ytrain, theta, 0);
+    
+    val_indexes = randperm(size(Xval, 1), i);
+    cvError = linearRegCostFunction(Xval(val_indexes, :), ... 
+                                    yval(val_indexes), theta, 0);
+    error_train(i) = trainError;
+    error_val(i) = cvError;
+end
 
 % -------------------------------------------------------------
 
