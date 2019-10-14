@@ -23,8 +23,29 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+C_options = [0.01; 0.03; 0.1; 0.3; 1 ; 3; 10; 30];
+sigma_options = [0.01; 0.03; 0.1; 0.3; 1 ; 3; 10; 30];
+min_error = Inf;
 
-
+for i = 1:size(C_options, 1)
+    for j = 1:size(sigma_options, 1)
+        % disp(size(sigma_val))
+        sigma_val = sigma_options(j);
+        C_val = C_options(i);
+        
+        model = svmTrain(X, y, C_val ...
+            , @(x1, x2) gaussianKernel(x1, x2, sigma_val));
+        
+        predictions = svmPredict(model, Xval);
+        error = mean(double(predictions ~= yval));
+        % fprintf("Comparing C = %f and lambda = %f", C_val, sigma_val);
+        if error < min_error
+            min_error = error;
+            C = C_val;
+            sigma = sigma_val;
+        end
+    end
+end
 
 
 
